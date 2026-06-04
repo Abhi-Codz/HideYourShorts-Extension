@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    width: 300px;
+    font-family: system-ui, sans-serif;
+    background: #ffffff;
+}
+
+.container {
+    padding: 16px;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 16px;
+}
+
+.setting {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+hr {
+    margin: 14px 0;
+}

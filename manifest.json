@@ -1,26 +1,35 @@
 {
-    "manifest_version": 3,
-    "name": "YouTube Shorts Toggle",
-    "version": "1.0.0",
-    "description": "Hide YouTube Shorts suggestions with a toggle.",
-    "permissions": [
-      "storage"
-    ],
-    "host_permissions": [
-      "https://www.youtube.com/*"
-    ],
-    "content_scripts": [
-      {
-        "matches": [
-          "https://www.youtube.com/*"
-        ],
-        "js": [
-          "content.js"
-        ],
-        "run_at": "document_idle"
-      }
-    ],
-    "action": {
-      "default_popup": "popup.html"
+  "manifest_version": 3,
+  "name": "HideYourShorts",
+  "description": "A toggling browser extension, for personal use rather, to bid shorts addiction a farewell.. Well, smart farewell.",
+  "version": "1.1.0",
+
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+
+  "host_permissions": [
+    "https://www.youtube.com/*"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*"
+      ],
+      "js": [
+        "content/settings.js",
+        "content/home.js",
+        "content/search.js",
+        "content/sidebar.js",
+        "content/content.js"
+      ],
+      "run_at": "document_idle"
     }
+  ],
+
+  "action": {
+    "default_popup": "popup/popup.html"
   }
+}
