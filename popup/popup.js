@@ -1,78 +1,195 @@
-const enabled =
-    document.getElementById("enabled");
-
-const home =
-    document.getElementById("home");
-
-const search =
-    document.getElementById("search");
-
-const sidebar =
-    document.getElementById("sidebar");
+const DEFAULT_SETTINGS = {
+    enabled: true,
+    hideHomeShorts: true,
+    hideSearchShorts: true,
+    hideSidebarShorts: true
+};
 
 async function loadSettings() {
 
     const settings =
-        await chrome.storage.sync.get({
-            enabled: true,
-            hideHomeShorts: true,
-            hideSearchShorts: true,
-            hideSidebarShorts: true
-        });
+        await chrome.storage.sync.get(
+            DEFAULT_SETTINGS
+        );
 
-    enabled.checked =
-        settings.enabled;
+    updateToggle(
+        "enabled",
+        settings.enabled
+    );
 
-    home.checked =
-        settings.hideHomeShorts;
+    updateToggle(
+        "hideHomeShorts",
+        settings.hideHomeShorts
+    );
 
-    search.checked =
-        settings.hideSearchShorts;
+    updateToggle(
+        "hideSearchShorts",
+        settings.hideSearchShorts
+    );
 
-    sidebar.checked =
-        settings.hideSidebarShorts;
+    updateToggle(
+        "hideSidebarShorts",
+        settings.hideSidebarShorts
+    );
 
+    updateStatus(settings.enabled);
 }
 
-async function saveSettings() {
+function updateToggle(setting, value) {
+
+    const toggle =
+        document.querySelector(
+            `[data-setting="${setting}"]`
+        );
+
+    const onBtn =
+        toggle.querySelector(".on");
+
+    const offBtn =
+        toggle.querySelector(".off");
+
+    if (value) {
+
+        onBtn.classList.add("active");
+        offBtn.classList.remove("active");
+
+    } else {
+
+        offBtn.classList.add("active");
+        onBtn.classList.remove("active");
+
+    }
+}
+
+function updateStatus(enabled) {
+
+    const text =
+        document.getElementById(
+            "statusText"
+        );
+
+    const dot =
+        document.getElementById(
+            "statusDot"
+        );
+
+    if (enabled) {
+
+        text.textContent =
+            "Status: Positive";
+
+        dot.classList.remove(
+            "negative"
+        );
+
+        dot.classList.add(
+            "positive"
+        );
+
+    } else {
+
+        text.textContent =
+            "Status: Negative";
+
+        dot.classList.remove(
+            "positive"
+        );
+
+        dot.classList.add(
+            "negative"
+        );
+
+    }
+}
+
+async function saveSetting(
+    key,
+    value
+) {
 
     await chrome.storage.sync.set({
-        enabled: enabled.checked,
-        hideHomeShorts: home.checked,
-        hideSearchShorts: search.checked,
-        hideSidebarShorts: sidebar.checked
+        [key]: value
     });
+
+    if (key === "enabled") {
+        updateStatus(value);
+    }
 
     const tabs =
         await chrome.tabs.query({
-            url: "*://www.youtube.com/*"
+            url: "*://*.youtube.com/*"
         });
 
     for (const tab of tabs) {
 
-        chrome.tabs.sendMessage(
-            tab.id,
-            {
-                type: "settingsUpdated"
+        try {
+
+            await chrome.tabs.sendMessage(
+                tab.id,
+                {
+                    type: "settingsUpdated"
+                }
+            );
+
+        } catch (err) {
+
+            console.debug(
+                "Tab not ready:",
+                tab.id
+            );
+
+        }
+
+    }
+}
+
+document
+    .querySelectorAll(".toggle-box")
+    .forEach(toggle => {
+
+        const setting =
+            toggle.dataset.setting;
+
+        const onBtn =
+            toggle.querySelector(".on");
+
+        const offBtn =
+            toggle.querySelector(".off");
+
+        onBtn.addEventListener(
+            "click",
+            async () => {
+
+                updateToggle(
+                    setting,
+                    true
+                );
+
+                await saveSetting(
+                    setting,
+                    true
+                );
+
             }
         );
 
-    }
+        offBtn.addEventListener(
+            "click",
+            async () => {
 
-}
+                updateToggle(
+                    setting,
+                    false
+                );
 
-[
-    enabled,
-    home,
-    search,
-    sidebar
-].forEach(input => {
+                await saveSetting(
+                    setting,
+                    false
+                );
 
-    input.addEventListener(
-        "change",
-        saveSettings
-    );
+            }
+        );
 
-});
+    });
 
 loadSettings();

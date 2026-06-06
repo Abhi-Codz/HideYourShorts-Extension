@@ -1,4 +1,4 @@
-function hideSearchShorts() {
+/*function hideSearchShorts() {
 
     if (!location.pathname.startsWith("/results")) {
         return;
@@ -26,3 +26,43 @@ function hideSearchShorts() {
 
 hideSearchShorts();
 window.addEventListener('yt-page-data-updated', hideSearchShorts);
+*/
+
+function hideSearchShorts() {
+
+    document
+        .querySelectorAll(
+            "grid-shelf-view-model"
+        )
+        .forEach(shelf => {
+
+            const text =
+                shelf.textContent
+                    ?.toLowerCase() || "";
+
+            if (
+                text.includes("shorts")
+            ) {
+
+                const heading =
+                    shelf.querySelector(
+                        "h1,h2,h3,h4"
+                    );
+
+                if (
+                    heading &&
+                    heading.textContent
+                        .trim()
+                        .toLowerCase() ===
+                    "shorts"
+                ) {
+
+                    shelf.style.display =
+                        "none";
+
+                }
+
+            }
+
+        });
+}

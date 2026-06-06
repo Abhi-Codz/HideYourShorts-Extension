@@ -9,29 +9,69 @@
 
     <div class="container">
 
-        <h2>HideYourShorts</h2>
+        <div class="title">
+            HideYourShorts
+        </div>
 
-        <label class="setting">
-            <input type="checkbox" id="enabled">
-            <span>Enable Extension</span>
-        </label>
+        <div class="setting-row">
+            <div class="label-box">
+                Extension
+            </div>
 
-        <hr>
+            <div class="toggle-box" data-setting="enabled">
+                <button class="toggle-option on active">ON</button>
+                <button class="toggle-option off">OFF</button>
+            </div>
+        </div>
 
-        <label class="setting">
-            <input type="checkbox" id="home">
-            <span>Hide Shorts on Home Page</span>
-        </label>
+        <div class="setting-row">
+            <div class="label-box">
+                Home Page
+            </div>
 
-        <label class="setting">
-            <input type="checkbox" id="search">
-            <span>Hide Shorts on Search Panel</span>
-        </label>
+            <div class="toggle-box" data-setting="hideHomeShorts">
+                <button class="toggle-option on active">ON</button>
+                <button class="toggle-option off">OFF</button>
+            </div>
+        </div>
 
-        <label class="setting">
-            <input type="checkbox" id="sidebar">
-            <span>Hide Shorts on Sidebar Container</span>
-        </label>
+        <div class="setting-row">
+            <div class="label-box">
+                Search Results
+            </div>
+
+            <div class="toggle-box" data-setting="hideSearchShorts">
+                <button class="toggle-option on active">ON</button>
+                <button class="toggle-option off">OFF</button>
+            </div>
+        </div>
+
+        <div class="setting-row">
+            <div class="label-box">
+                Sidebar Navigation
+            </div>
+
+            <div class="toggle-box" data-setting="hideSidebarShorts">
+                <button class="toggle-option on active">ON</button>
+                <button class="toggle-option off">OFF</button>
+            </div>
+        </div>
+
+        <div class="status-box">
+            <span id="statusText">
+                Status: Positive
+            </span>
+
+            <span id="statusDot" class="status-dot positive"></span>
+        </div>
+
+        <div class="version-box">
+            Version 1.1.0
+        </div>
+
+        <div class="footer">
+            © 2026 Abhinav Mishra
+        </div>
 
     </div>
 

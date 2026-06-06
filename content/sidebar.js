@@ -1,34 +1,24 @@
 function hideSidebarShorts() {
 
-    const links =
-        document.querySelectorAll(
-            'a[href="/shorts/"]'
-        );
+    document
+        .querySelectorAll(
+            "ytd-guide-entry-renderer, ytd-mini-guide-entry-renderer"
+        )
+        .forEach(entry => {
 
-    console.log(
-        "Shorts sidebar links found:",
-        links.length
-    );
+            const text =
+                entry.textContent?.trim().toLowerCase() || "";
 
-    links.forEach(link => {
+            const shortsLink =
+                entry.querySelector('a[href="/shorts/"]');
 
-        console.log(
-            "Found:",
-            link
-        );
+            if (
+                text.includes("shorts") ||
+                shortsLink
+            ) {
+                entry.style.display = "none";
+            }
 
-        const container =
-            link.closest(
-                // "ytd-guide-entry-renderer"
-                "ytd-guide-collapsible-section-entry-renderer"
-            ) ||
-            link.closest(
-                "ytd-mini-guide-entry-renderer"
-            );
+        });
 
-        if (container) {
-            container.style.display = "none";
-        }
-
-    });
 }
