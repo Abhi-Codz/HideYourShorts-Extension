@@ -6,5 +6,8 @@ const DEFAULT_SETTINGS = {
 };
 
 async function getSettings() {
-    return await chrome.storage.sync.get(DEFAULT_SETTINGS);
+
+    return await ext.storage.sync.get(
+        DEFAULT_SETTINGS
+    );
 }

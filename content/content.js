@@ -55,7 +55,7 @@ function startObserver() {
 
 }
 
-chrome.runtime.onMessage.addListener(
+ext.runtime.onMessage.addListener(
     (message) => {
 
         if (

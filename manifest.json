@@ -6,6 +6,12 @@
   "description": "A toggling browser extension, for personal use rather, to bid shorts addiction a farewell.. Well, smart farewell.",
 
   "version": "1.1.0",
+  
+  "browser_specific_settings": {
+    "gecko": {
+    "id": "hideyourshorts@hideyourshorts.com"
+  }
+},
 
   "permissions": [
     "storage",
@@ -30,6 +36,7 @@
       ],
 
       "js": [
+        "content/api.js",
         "content/settings.js",
         "content/home.js",
         "content/search.js",

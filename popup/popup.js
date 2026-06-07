@@ -8,7 +8,7 @@ const DEFAULT_SETTINGS = {
 async function loadSettings() {
 
     const settings =
-        await chrome.storage.sync.get(
+        await ext.storage.sync.get(
             DEFAULT_SETTINGS
         );
 
@@ -107,7 +107,7 @@ async function saveSetting(
     value
 ) {
 
-    await chrome.storage.sync.set({
+    await ext.storage.sync.set({
         [key]: value
     });
 
@@ -116,7 +116,7 @@ async function saveSetting(
     }
 
     const tabs =
-        await chrome.tabs.query({
+        await ext.tabs.query({
             url: "*://*.youtube.com/*"
         });
 
@@ -124,7 +124,7 @@ async function saveSetting(
 
         try {
 
-            await chrome.tabs.sendMessage(
+            await ext.tabs.sendMessage(
                 tab.id,
                 {
                     type: "settingsUpdated"
