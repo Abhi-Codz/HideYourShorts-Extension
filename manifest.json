@@ -12,7 +12,9 @@
     "id": "hideyourshorts@hideyourshorts.com",
 
     "data_collection_permissions": {
-      "required": [],
+      "required": [
+        "none"
+      ],
       "optional": []
     }
   }
