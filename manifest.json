@@ -5,11 +5,16 @@
 
   "description": "A toggling browser extension, for personal use rather, to bid shorts addiction a farewell.. Well, smart farewell.",
 
-  "version": "1.1.0",
+  "version": "1.1.1",
   
-  "browser_specific_settings": {
-    "gecko": {
-    "id": "hideyourshorts@hideyourshorts.com"
+"browser_specific_settings": {
+  "gecko": {
+    "id": "hideyourshorts@hideyourshorts.com",
+
+    "data_collection_permissions": {
+      "required": [],
+      "optional": []
+    }
   }
 },
 
